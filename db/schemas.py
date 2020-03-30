@@ -10,6 +10,3 @@ class QuoteCreate(QuoteBase):
 
 class Quote(QuoteBase):
     id: int
-
-class Message(BaseModel):
-    message: str

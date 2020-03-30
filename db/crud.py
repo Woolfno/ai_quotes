@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from .models import ai_quotes
 from .schemas import QuoteCreate, Quote
 
@@ -19,6 +19,15 @@ def create_quote(quote:QuoteCreate) -> Quote:
         **quote.dict()
     })
     return ai_quotes[-1]
+
+def update_quote(quote:Quote) -> Tuple[Quote, int]:
+    for item in ai_quotes:
+        if item['id']==quote.id:
+            item['author']=quote.author
+            item['quote']=quote.quote
+            return quote, 200
+    ai_quotes.append(**quote.dict())
+    return quote, 201
 
 def delete(id:int) -> bool:
     for idx, quote in enumerate(ai_quotes):
